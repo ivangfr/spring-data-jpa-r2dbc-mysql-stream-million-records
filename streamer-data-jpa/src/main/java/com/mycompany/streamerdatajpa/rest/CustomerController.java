@@ -1,6 +1,7 @@
 package com.mycompany.streamerdatajpa.rest;
 
 import com.mycompany.streamerdatajpa.bus.CustomerStream;
+import com.mycompany.streamerdatajpa.model.Customer;
 import com.mycompany.streamerdatajpa.service.CustomerService;
 import com.mycompany.streamerdatajpa.service.RandomCustomerGenerator;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityManager;
+import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @RestController
@@ -23,8 +25,8 @@ public class CustomerController {
     private final EntityManager entityManager;
 
     @PatchMapping("/load")
-    public void loadCustomers(@RequestParam int number) {
-        customerService.saveCustomers(randomCustomerGenerator.generate(number));
+    public void loadCustomers(@RequestParam Integer amount) {
+        customerService.saveCustomers(randomCustomerGenerator.generate(amount));
     }
 
     @PatchMapping("/stream-naive")
@@ -35,9 +37,11 @@ public class CustomerController {
     @Transactional(readOnly = true)
     @PatchMapping("/stream")
     public void streamCustomers() {
-        customerService.getCustomerStream().forEach(customer -> {
-            customerStream.send(customer);
-            entityManager.detach(customer);
-        });
+        try (Stream<Customer> customers = customerService.getCustomerStream()) {
+            customers.forEach(customer -> {
+                customerStream.send(customer);
+                entityManager.detach(customer);
+            });
+        }
     }
 }

@@ -20,8 +20,8 @@ public class CustomerController {
     private final RandomCustomerGenerator randomCustomerGenerator;
 
     @PatchMapping("/load")
-    public Mono<Void> loadCustomers(@RequestParam int number) {
-        return customerService.saveCustomers(randomCustomerGenerator.generate(number));
+    public Mono<Void> loadCustomers(@RequestParam Integer amount) {
+        return customerService.saveCustomers(randomCustomerGenerator.generate(amount));
     }
 
     @PatchMapping("/stream")

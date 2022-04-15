@@ -21,6 +21,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
             @QueryHint(name = HINT_CACHEABLE, value = "false"),
             @QueryHint(name = READ_ONLY, value = "true")
     })
-    @Query(value = "select c from Customer c")
+    @Query(value = "SELECT c FROM Customer c")
     Stream<Customer> streamAll();
 }

@@ -29,8 +29,8 @@ public class RandomCustomerGenerator {
             "Adams", "Nelson", "Baker", "Hall", "Rivera", "Campbell", "Mitchell", "Carter", "Roberts"
     );
 
-    public List<Customer> generate(int number) {
-        return IntStream.rangeClosed(1, number)
+    public List<Customer> generate(Integer amount) {
+        return IntStream.rangeClosed(1, amount)
                 .mapToObj(i -> {
                     Customer customer = new Customer();
                     customer.setFirstName(FIRST_NAMES.get(random.nextInt(FIRST_NAMES.size())));

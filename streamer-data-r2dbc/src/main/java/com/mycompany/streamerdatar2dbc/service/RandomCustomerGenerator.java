@@ -29,8 +29,8 @@ public class RandomCustomerGenerator {
             "Adams", "Nelson", "Baker", "Hall", "Rivera", "Campbell", "Mitchell", "Carter", "Roberts"
     );
 
-    public Flux<Customer> generate(int number) {
-        return Flux.fromStream(IntStream.rangeClosed(1, number)
+    public Flux<Customer> generate(Integer amount) {
+        return Flux.fromStream(IntStream.rangeClosed(1, amount)
                 .mapToObj(i -> {
                     Customer customer = new Customer();
                     customer.setFirstName(FIRST_NAMES.get(random.nextInt(FIRST_NAMES.size())));
