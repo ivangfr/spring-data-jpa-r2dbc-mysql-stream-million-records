@@ -66,93 +66,15 @@ Inside `spring-data-jpa-r2dbc-mysql-stream-million-records`, run the following M
   ./mvnw clean spring-boot:run --projects streamer-data-r2dbc
   ```
 
-### Simulation with 1 million customer records
-
-Previously, during [Start Environment](#start-environment) step, we initialized MySQL with 1 million customer records.
-
-- #### JConsole
-
-  We will use [`JConsole`](https://openjdk.java.net/tools/svc/jconsole/) tool to monitor machine resources consumption. In order to run it, open a new terminal and run
-  ```
-  jconsole
-  ```
-  
-  A window similar to the one below will open
-
-  ![jconsole-initial](documantation/jconsole-initial.png)
-
-  In `JConsole`, we can connect to `streamer-data-jpa` and `streamer-data-r2dbc` applications and check how they are consuming the machine resources.
-
-- #### kafka-console-consumer
-
-  In order to see the messages related to customer records pushed to `Kafka`, we can use `kafka-console-consumer` tool. For it, open a new terminal and run
-  ```
-  docker exec -t zookeeper kafka-console-consumer --bootstrap-server kafka:9092 --whitelist 'com.mycompany.streamerdatajpa.customers|com.mycompany.streamerdatar2dbc.customers'
-  ```
-
-- #### Streaming customer records
-
-  In another terminal, call the following `curl` commands to trigger the streaming of customer records from `MySQL` to `Kafka`. 
-
-  It will take some time to stream all records. Meanwhile, go to `JConsole` and monitor the machine resources utilization.
-
-  At the end of the `curl` command, the total time it took (in seconds) to process will be displayed. 
-
-  - **streamer-data-jpa**
-
-    _Naive implementation_
-    ```
-    curl -w "Response Time: %{time_total}s" -s -X PATCH localhost:9080/api/customers/stream-naive
-    ```
-  
-    _Better implementation_
-    ```
-    curl -w "Response Time: %{time_total}s" -s -X PATCH localhost:9080/api/customers/stream
-    ```
-
-  - **streamer-data-r2dbc**
-    ```
-    curl -w "Response Time: %{time_total}s" -s -X PATCH localhost:9081/api/customers/stream
-    ```
-
-- #### Sample
-
-  Here is a sample simulation I've got in my machine
-
-  - **streamer-data-jpa**
-
-    _Naive implementation_
-    ```
-    Response Time: 414.486126s
-    ```
-    ![jconsole-jpa-stream-naive](documantation/jconsole-jpa-stream-naive.png)
-
-    _Better implementation_
-    ```
-    Response Time: 453.692525s
-    ```
-    ![jconsole-jpa-stream](documantation/jconsole-jpa-stream.png)
-
-  - **streamer-data-r2dbc**
-    ```
-    Response Time: 476.951654s
-    ```
-    ![jconsole-r2dbc-stream](documantation/jconsole-r2dbc-stream.png)
-
 ## Run applications as Docker containers
 
 - ### Build Docker Images
 
   - In a terminal, make sure you are in `spring-data-jpa-r2dbc-mysql-stream-million-records` root folder
   - Run the following script to build the Docker images
-    - JVM
-      ```
-      ./docker-build.sh
-      ```
-    - Native (it's not implemented yet)
-      ```
-      ./docker-build.sh native
-      ```
+    ```
+    ./docker-build.sh
+    ```
 
 - ### Environment Variables
 
@@ -186,7 +108,7 @@ Previously, during [Start Environment](#start-environment) step, we initialized 
       --network spring-data-jpa-r2dbc-mysql-stream-million-records_default \
       ivanfranchin/streamer-data-jpa:1.0.0
     ```
-  
+
   - **streamer-data-r2dbc**
     ```
     docker run --rm --name streamer-data-r2dbc \
@@ -195,6 +117,81 @@ Previously, during [Start Environment](#start-environment) step, we initialized 
       --network spring-data-jpa-r2dbc-mysql-stream-million-records_default \
       ivanfranchin/streamer-data-r2dbc:1.0.0
     ```
+
+## Simulation with 1 million customer records
+
+Previously, during [Start Environment](#start-environment) step, we initialized MySQL with 1 million customer records.
+
+### Resource Consumption Monitoring Tool
+
+- **Running applications with Maven**
+
+  We will use [`JConsole`](https://openjdk.java.net/tools/svc/jconsole/) tool. In order to run it, open a new terminal and run
+  ```
+  jconsole
+  ```
+  
+  A window similar to the one below will open
+  ![jconsole-initial](documantation/jconsole-initial.png)
+
+- **Running applications as Docker containers**
+
+  We will use [`docker stats`](https://docs.docker.com/engine/reference/commandline/stats/). In order to run it, open a new terminal and run
+  ```
+  docker stats streamer-data-jpa streamer-data-r2dbc
+  ```
+
+### Kafka Messages Consumer
+
+In order to see the messages related to customer records pushed to `Kafka`, we can use `kafka-console-consumer` tool. For it, open a new terminal and run
+```
+docker exec -t zookeeper kafka-console-consumer --bootstrap-server kafka:9092 --whitelist 'com.mycompany.streamerdatajpa.customers|com.mycompany.streamerdatar2dbc.customers'
+```
+
+### Streaming customer records
+
+In another terminal, call the following `curl` commands to trigger the streaming of customer records from `MySQL` to `Kafka`. At the end of the `curl` command, the total time it took (in seconds) to process will be displayed. 
+
+- **streamer-data-jpa**
+
+  _Naive implementation_
+  ```
+  curl -w "Response Time: %{time_total}s" -s -X PATCH localhost:9080/api/customers/stream-naive
+  ```
+  
+  _Better implementation_
+  ```
+  curl -w "Response Time: %{time_total}s" -s -X PATCH localhost:9080/api/customers/stream
+  ```
+
+- **streamer-data-r2dbc**
+  ```
+  curl -w "Response Time: %{time_total}s" -s -X PATCH localhost:9081/api/customers/stream
+  ```
+
+### Sample 
+
+A simulation sample running the applications with Maven and using `JConsole` tool
+
+- **streamer-data-jpa**
+
+  _Naive implementation_
+  ```
+  Response Time: 414.486126s
+  ```
+  ![jconsole-jpa-stream-naive](documantation/jconsole-jpa-stream-naive.png)
+
+  _Better implementation_
+  ```
+  Response Time: 453.692525s
+  ```
+  ![jconsole-jpa-stream](documantation/jconsole-jpa-stream.png)
+
+- **streamer-data-r2dbc**
+  ```
+  Response Time: 476.951654s
+  ```
+  ![jconsole-r2dbc-stream](documantation/jconsole-r2dbc-stream.png)
 
 ## Useful commands
 
