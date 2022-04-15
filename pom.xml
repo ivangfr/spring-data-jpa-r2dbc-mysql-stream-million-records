@@ -18,6 +18,8 @@
 
     <properties>
         <java.version>11</java.version>
+        <jib-maven-plugin.version>3.2.1</jib-maven-plugin.version>
+        <docker-image.prefix>ivanfranchin</docker-image.prefix>
     </properties>
 
 	<modules>
@@ -37,6 +39,16 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>${jib-maven-plugin.version}</version>
+                <configuration>
+                    <to>
+                        <image>${docker-image.prefix}/${project.artifactId}:${project.version}</image>
+                    </to>
+                </configuration>
             </plugin>
         </plugins>
     </build>

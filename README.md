@@ -139,6 +139,63 @@ Previously, during [Start Environment](#start-environment) step, we initialized 
     ```
     ![jconsole-r2dbc-stream](documantation/jconsole-r2dbc-stream.png)
 
+## Run applications as Docker containers
+
+- ### Build Docker Images
+
+  - In a terminal, make sure you are in `spring-data-jpa-r2dbc-mysql-stream-million-records` root folder
+  - Run the following script to build the Docker images
+    - JVM
+      ```
+      ./docker-build.sh
+      ```
+    - Native (it's not implemented yet)
+      ```
+      ./docker-build.sh native
+      ```
+
+- ### Environment Variables
+
+  - **streamer-data-jpa**
+
+    | Environment Variable | Description                                                             |
+    |----------------------|-------------------------------------------------------------------------|
+    | `MYSQL_HOST`         | Specify host of the `MySQL` database to use (default `localhost`)       |
+    | `MYSQL_PORT`         | Specify port of the `MySQL` database to use (default `3306`)            |
+    | `KAFKA_HOST`         | Specify host of the `Kafka` message broker to use (default `localhost`) |
+    | `KAFKA_PORT`         | Specify port of the `Kafka` message broker to use (default `29092`)     |
+
+  - **streamer-data-r2dbc**
+
+    | Environment Variable | Description                                                             |
+    |----------------------|-------------------------------------------------------------------------|
+    | `MYSQL_HOST`         | Specify host of the `MySQL` database to use (default `localhost`)       |
+    | `MYSQL_PORT`         | Specify port of the `MySQL` database to use (default `3306`)            |
+    | `KAFKA_HOST`         | Specify host of the `Kafka` message broker to use (default `localhost`) |
+    | `KAFKA_PORT`         | Specify port of the `Kafka` message broker to use (default `29092`)     |
+
+- ### Start Docker Containers
+
+  Run the following `docker run` commands in different terminals
+
+  - **streamer-data-jpa**
+    ```
+    docker run --rm --name streamer-data-jpa \
+      -p 9080:9080 \
+      -e MYSQL_HOST=mysql -e KAFKA_HOST=kafka -e KAFKA_PORT=9092 \
+      --network spring-data-jpa-r2dbc-mysql-stream-million-records_default \
+      ivanfranchin/streamer-data-jpa:1.0.0
+    ```
+  
+  - **streamer-data-r2dbc**
+    ```
+    docker run --rm --name streamer-data-r2dbc \
+      -p 9081:9081 \
+      -e MYSQL_HOST=mysql -e KAFKA_HOST=kafka -e KAFKA_PORT=9092 \
+      --network spring-data-jpa-r2dbc-mysql-stream-million-records_default \
+      ivanfranchin/streamer-data-r2dbc:1.0.0
+    ```
+
 ## Useful commands
 
 - **MySQL monitor**
@@ -153,3 +210,18 @@ Previously, during [Start Environment](#start-environment) step, we initialized 
   ```
   ./dump-mysql-db.sh
   ```
+
+## Shutdown
+
+- To stop `streamer-data-jpa` and `streamer-data-r2dbc`, go to the terminals were they are running and press `Ctrl+C`
+- To stop and remove docker-compose containers, network and volumes, go to a terminal and, inside `spring-data-jpa-r2dbc-mysql-stream-million-records` root folder, run the command below
+  ```
+  docker-compose down -v
+  ```
+
+## Cleanup
+
+To remove all Docker images created by this project, go to a terminal and, inside `spring-data-jpa-r2dbc-mysql-stream-million-records` root folder, run the following script
+```
+./remove-docker-images.sh
+```
