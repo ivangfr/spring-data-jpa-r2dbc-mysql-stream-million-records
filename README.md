@@ -199,7 +199,7 @@ A simulation sample running the applications with Maven and using `JConsole` too
 
   To check data in `customerdb` database
   ```
-  docker exec -it -e MYSQL_PWD="secret" mysql mysql -uroot --database customerdb
+  docker exec -it -e MYSQL_PWD=secret mysql mysql -uroot --database customerdb
   SELECT count(*) FROM customer;
   ```
 
