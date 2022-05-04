@@ -3,8 +3,9 @@ version: "3.8"
 services:
 
   mysql:
-    image: mysql:8.0.28
+    image: mysql:8.0.29
     container_name: mysql
+    restart: unless-stopped
     ports:
       - "3306:3306"
     environment:
@@ -40,3 +41,29 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     healthcheck:
       test: [ "CMD", "nc", "-z", "localhost", "9092" ]
+
+  kafdrop:
+    image: obsidiandynamics/kafdrop:3.30.0
+    container_name: kafdrop
+    restart: unless-stopped
+    depends_on:
+      - kafka
+    ports:
+      - "9000:9000"
+    environment:
+      KAFKA_BROKERCONNECT: kafka:9092
+    healthcheck:
+      test: "curl -f http://localhost:9000 || exit 1"
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.39.3
+    container_name: cadvisor
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /var/run/docker.sock:/var/run/docker.sock

@@ -50,7 +50,7 @@ In this project, we will implement two [`Spring Boot`](https://docs.spring.io/sp
     ```
     ./init-mysql-db.sh 1M
     ```
-    > **Note:** you can provide the sollowing load amount values: 0, 100k, 200k, 500k or 1M
+    > **Note:** we can provide the following load amount values: 0, 100k, 200k, 500k or 1M
 
 ## Run applications with Maven
 
@@ -102,8 +102,7 @@ Inside `spring-data-jpa-r2dbc-mysql-stream-million-records`, run the following M
 
   - **streamer-data-jpa**
     ```
-    docker run --rm --name streamer-data-jpa \
-      -p 9080:9080 \
+    docker run --rm --name streamer-data-jpa -p 9080:9080 \
       -e MYSQL_HOST=mysql -e KAFKA_HOST=kafka -e KAFKA_PORT=9092 \
       --network spring-data-jpa-r2dbc-mysql-stream-million-records_default \
       ivanfranchin/streamer-data-jpa:1.0.0
@@ -111,8 +110,7 @@ Inside `spring-data-jpa-r2dbc-mysql-stream-million-records`, run the following M
 
   - **streamer-data-r2dbc**
     ```
-    docker run --rm --name streamer-data-r2dbc \
-      -p 9081:9081 \
+    docker run --rm --name streamer-data-r2dbc -p 9081:9081 \
       -e MYSQL_HOST=mysql -e KAFKA_HOST=kafka -e KAFKA_PORT=9092 \
       --network spring-data-jpa-r2dbc-mysql-stream-million-records_default \
       ivanfranchin/streamer-data-r2dbc:1.0.0
@@ -130,27 +128,18 @@ Previously, during [Start Environment](#start-environment) step, we initialized 
   ```
   jconsole
   ```
-  
-  A window similar to the one below will open
-  ![jconsole-initial](documantation/jconsole-initial.png)
 
 - **Running applications as Docker containers**
 
-  We will use [`docker stats`](https://docs.docker.com/engine/reference/commandline/stats/). In order to run it, open a new terminal and run
-  ```
-  docker stats streamer-data-jpa streamer-data-r2dbc
-  ```
-
-### Kafka Messages Consumer
-
-In order to see the messages related to customer records pushed to `Kafka`, we can use `kafka-console-consumer` tool. For it, open a new terminal and run
-```
-docker exec -t zookeeper kafka-console-consumer --bootstrap-server kafka:9092 --whitelist 'com.mycompany.streamerdatajpa.customers|com.mycompany.streamerdatar2dbc.customers'
-```
+  We will use [`cAdvisor`](https://github.com/google/cadvisor) tool. In a browser, access
+  - http://localhost:8080/docker/ to explore the running containers;
+  - http://localhost:8080/docker/container-name to go directly to the info of a specific container.
 
 ### Streaming customer records
 
-In another terminal, call the following `curl` commands to trigger the streaming of customer records from `MySQL` to `Kafka`. At the end of the `curl` command, the total time it took (in seconds) to process will be displayed. 
+In another terminal, call the following `curl` commands to trigger the streaming of customer records from `MySQL` to `Kafka`. At the end of the `curl` command, the total time it took (in seconds) to process will be displayed.
+
+We can monitor the amount of messages and the messages themselves been streamed using [Kafdrop – Kafka Web UI](https://github.com/obsidiandynamics/kafdrop) at http://localhost:9000
 
 - **streamer-data-jpa**
 
@@ -193,7 +182,11 @@ A simulation sample running the applications with Maven and using `JConsole` too
   ```
   ![jconsole-r2dbc-stream](documantation/jconsole-r2dbc-stream.png)
 
-## Useful commands
+## Useful commands & links
+
+- **Kafdrop**
+
+  `Kafdrop` can be accessed at http://localhost:9000
 
 - **MySQL monitor**
 
