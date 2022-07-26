@@ -56,7 +56,7 @@ services:
       test: "curl -f http://localhost:9000 || exit 1"
 
   cadvisor:
-    image: gcr.io/cadvisor/cadvisor:v0.39.3
+    image: gcr.io/cadvisor/cadvisor:v0.44.0
     container_name: cadvisor
     restart: unless-stopped
     ports:

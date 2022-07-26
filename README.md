@@ -23,7 +23,7 @@ In this project, we will implement two [`Spring Boot`](https://docs.spring.io/sp
 
 ## Prerequisites
 
-- [`Java 11+`](https://www.oracle.com/java/technologies/downloads/#java11)
+- [`Java 17+`](https://www.oracle.com/java/technologies/downloads/#java17)
 - [`Docker`](https://www.docker.com/)
 - [`Docker-Compose`](https://docs.docker.com/compose/install/)
 
@@ -50,7 +50,7 @@ In this project, we will implement two [`Spring Boot`](https://docs.spring.io/sp
     ```
     ./init-mysql-db.sh 1M
     ```
-    > **Note:** we can provide the following load amount values: 0, 100k, 200k, 500k or 1M
+    > **Note**: we can provide the following load amount values: 0, 100k, 200k, 500k or 1M
 
 ## Run applications with Maven
 
@@ -132,8 +132,10 @@ Previously, during [Start Environment](#start-environment) step, we initialized 
 - **Running applications as Docker containers**
 
   We will use [`cAdvisor`](https://github.com/google/cadvisor) tool. In a browser, access
-  - http://localhost:8080/docker/ to explore the running containers;
-  - http://localhost:8080/docker/container-name to go directly to the info of a specific container.
+  - to explore the running containers: http://localhost:8080/docker/
+  - to go directly to a specific container:
+    - **streamer-data-jpa**: http://localhost:8080/docker/streamer-data-jpa
+    - **streamer-data-r2dbc**: http://localhost:8080/docker/streamer-data-r2dbc
 
 ### Streaming customer records
 
@@ -168,19 +170,19 @@ A simulation sample running the applications with Maven and using `JConsole` too
   ```
   Response Time: 414.486126s
   ```
-  ![jconsole-jpa-stream-naive](documantation/jconsole-jpa-stream-naive.png)
+  ![jconsole-jpa-stream-naive](documentation/jconsole-jpa-stream-naive.jpeg)
 
   _Better implementation_
   ```
   Response Time: 453.692525s
   ```
-  ![jconsole-jpa-stream](documantation/jconsole-jpa-stream.png)
+  ![jconsole-jpa-stream](documentation/jconsole-jpa-stream.jpeg)
 
 - **streamer-data-r2dbc**
   ```
   Response Time: 476.951654s
   ```
-  ![jconsole-r2dbc-stream](documantation/jconsole-r2dbc-stream.png)
+  ![jconsole-r2dbc-stream](documentation/jconsole-r2dbc-stream.jpeg)
 
 ## Useful commands & links
 
