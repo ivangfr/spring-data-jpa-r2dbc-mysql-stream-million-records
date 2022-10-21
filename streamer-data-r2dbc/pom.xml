@@ -15,7 +15,7 @@
 
     <properties>
         <r2dbc-mysql.version>0.8.2.RELEASE</r2dbc-mysql.version>
-        <spring-cloud.version>2021.0.3</spring-cloud.version>
+        <spring-cloud.version>2021.0.4</spring-cloud.version>
     </properties>
 
     <dependencies>
