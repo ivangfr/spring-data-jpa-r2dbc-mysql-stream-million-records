@@ -15,7 +15,7 @@
 
     <properties>
         <r2dbc-mysql.version>0.8.2.RELEASE</r2dbc-mysql.version>
-        <spring-cloud.version>2021.0.4</spring-cloud.version>
+        <spring-cloud.version>2022.0.0</spring-cloud.version>
     </properties>
 
     <dependencies>
@@ -72,10 +72,8 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-stream</artifactId>
+            <artifactId>spring-cloud-stream-test-binder</artifactId>
             <scope>test</scope>
-            <classifier>test-binder</classifier>
-            <type>test-jar</type>
         </dependency>
         <dependency>
             <groupId>org.springframework.kafka</groupId>

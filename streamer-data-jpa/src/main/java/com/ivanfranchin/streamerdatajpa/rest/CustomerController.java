@@ -4,6 +4,7 @@ import com.ivanfranchin.streamerdatajpa.bus.CustomerStream;
 import com.ivanfranchin.streamerdatajpa.model.Customer;
 import com.ivanfranchin.streamerdatajpa.service.CustomerService;
 import com.ivanfranchin.streamerdatajpa.service.RandomCustomerGenerator;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.EntityManager;
 import java.util.stream.Stream;
 
 @RequiredArgsConstructor
