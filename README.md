@@ -72,9 +72,14 @@ Inside `spring-data-jpa-r2dbc-mysql-stream-million-records`, run the following M
 
   - In a terminal, make sure you are in `spring-data-jpa-r2dbc-mysql-stream-million-records` root folder
   - Run the following script to build the Docker images
-    ```
-    ./docker-build.sh
-    ```
+    - JVM
+      ```
+      ./docker-build.sh
+      ```
+    - Native
+      ```
+      ./docker-build.sh native
+      ```
 
 - ### Environment Variables
 
@@ -216,4 +221,12 @@ A simulation sample running the applications with Maven and using `JConsole` too
 To remove all Docker images created by this project, go to a terminal and, inside `spring-data-jpa-r2dbc-mysql-stream-million-records` root folder, run the following script
 ```
 ./remove-docker-images.sh
+```
+
+## Issues
+
+When running the native image of `streamer-data-jpa` and `streamer-data-r2dbc`, the containers don't connect to Kafka. The `KAFKA_HOST` environment variable informed (that is `kafka`) is not replaced correctly as the application is trying to connect to `localhost/127.0.0.1:9092`. 
+```
+INFO 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Node -1 disconnected.
+WARN 1 --- [| adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (localhost/127.0.0.1:9092) could not be established. Broker may not be available.
 ```
