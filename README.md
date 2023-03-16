@@ -2,6 +2,10 @@
 
 In this project, we will implement two [`Spring Boot`](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) Java Web application called, `streamer-data-jpa` and `streamer-data-r2dbc`. They both will fetch 1 million of customer's data from [`MySQL`](https://www.mysql.com/) and stream them to [`Kafka`](https://kafka.apache.org/). The main goal is to compare the application's performance and resource utilization. 
 
+## Project Diagram
+
+![project-diagram](documentation/project-diagram.jpeg)
+
 ## Applications
 
 - ### streamer-data-jpa
