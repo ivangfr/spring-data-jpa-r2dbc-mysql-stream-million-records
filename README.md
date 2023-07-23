@@ -84,7 +84,7 @@ Inside `spring-data-jpa-r2dbc-mysql-stream-million-records`, run the following M
       ```
       ./docker-build.sh
       ```
-    - Native
+    - Native (not implemented yet)
       ```
       ./docker-build.sh native
       ```
@@ -229,81 +229,4 @@ A simulation sample running the applications with Maven and using `JConsole` too
 To remove all Docker images created by this project, go to a terminal and, inside `spring-data-jpa-r2dbc-mysql-stream-million-records` root folder, run the following script
 ```
 ./remove-docker-images.sh
-```
-
-## Issues
-
-When running the native image of `streamer-data-jpa`, the following exception is thrown when the `/stream` is called. The issue is similar to [this one](https://github.com/spring-projects/spring-data-jpa/issues/2848). However, I tried the workaround present, but it didn't work. I will wait for the `spring-data-jpa` version `3.1`
-```
-ERROR 1 --- [nio-9080-exec-4] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.ClassCastException: com.ivanfranchin.streamerdatajpa.model.Customer cannot be cast to java.lang.Object[]] with root cause
-
-java.lang.ClassCastException: com.ivanfranchin.streamerdatajpa.model.Customer cannot be cast to java.lang.Object[]
-	at org.springframework.data.jpa.provider.PersistenceProvider$HibernateScrollableResultsIterator.next(PersistenceProvider.java:397) ~[na:na]
-	at java.base@17.0.6/java.util.Iterator.forEachRemaining(Iterator.java:133) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:na]
-	at java.base@17.0.6/java.util.Spliterators$IteratorSpliterator.forEachRemaining(Spliterators.java:1845) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:na]
-	at java.base@17.0.6/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:762) ~[na:na]
-	at com.ivanfranchin.streamerdatajpa.rest.CustomerController.streamCustomers(CustomerController.java:41) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:na]
-	at java.base@17.0.6/java.lang.reflect.Method.invoke(Method.java:568) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:na]
-	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:343) ~[na:na]
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:6.0.7]
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:6.0.7]
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750) ~[na:na]
-	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123) ~[na:na]
-	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:391) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:6.0.7]
-	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:6.0.7]
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:6.0.7]
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750) ~[na:na]
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:702) ~[na:na]
-	at com.ivanfranchin.streamerdatajpa.rest.CustomerController$$SpringCGLIB$$0.streamCustomers(<generated>) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:na]
-	at java.base@17.0.6/java.lang.reflect.Method.invoke(Method.java:568) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:na]
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:207) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:6.0.7]
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:152) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:6.0.7]
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:6.0.7]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:884) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:6.0.7]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:6.0.7]
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:6.0.7]
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1081) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:6.0.7]
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:974) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:6.0.7]
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:6.0.7]
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:888) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:6.0.7]
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:631) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:6.0]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205) ~[na:na]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[na:na]
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:10.1.7]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[na:na]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[na:na]
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:6.0.7]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:6.0.7]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[na:na]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[na:na]
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:6.0.7]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:6.0.7]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[na:na]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[na:na]
-	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:109) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:6.0.7]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:6.0.7]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[na:na]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[na:na]
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:6.0.7]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:6.0.7]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[na:na]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[na:na]
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:166) ~[na:na]
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[na:na]
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:493) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:10.1.7]
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[na:na]
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:10.1.7]
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[na:na]
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341) ~[na:na]
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390) ~[na:na]
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:10.1.7]
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:894) ~[na:na]
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741) ~[na:na]
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:10.1.7]
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[na:na]
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[na:na]
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[na:na]
-	at java.base@17.0.6/java.lang.Thread.run(Thread.java:833) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:na]
-	at com.oracle.svm.core.thread.PlatformThreads.threadStartRoutine(PlatformThreads.java:775) ~[com.ivanfranchin.streamerdatajpa.StreamerDataJpaApplication:na]
-	at com.oracle.svm.core.posix.thread.PosixPlatformThreads.pthreadStartRoutine(PosixPlatformThreads.java:203) ~[na:na]
 ```
