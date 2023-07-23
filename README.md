@@ -35,12 +35,12 @@ In this project, we will implement two [`Spring Boot`](https://docs.spring.io/sp
 
 - Open a terminal and inside `spring-data-jpa-r2dbc-mysql-stream-million-records` root folder run
   ```
-  docker-compose up -d
+  docker compose up -d
   ```
 
 - Wait for Docker containers to be up and running. To check it, run
   ```
-  docker-compose ps
+  docker compose ps
   ```
 
 - Once `MySQL`, `Kafka` and `Zookeeper` are up and running, run the following scripts
@@ -217,7 +217,7 @@ A simulation sample running the applications with Maven and using `JConsole` too
 - To stop `streamer-data-jpa` and `streamer-data-r2dbc`, go to the terminals were they are running and press `Ctrl+C`
 - To stop and remove docker-compose containers, network and volumes, go to a terminal and, inside `spring-data-jpa-r2dbc-mysql-stream-million-records` root folder, run the command below
   ```
-  docker-compose down -v
+  docker compose down -v
   ```
 
 ## Cleanup
