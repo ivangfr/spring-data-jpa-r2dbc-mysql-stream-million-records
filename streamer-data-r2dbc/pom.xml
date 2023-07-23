@@ -14,7 +14,7 @@
     <description>Demo project for Spring Boot</description>
 
     <properties>
-        <r2dbc-mysql.version>0.8.2.RELEASE</r2dbc-mysql.version>
+        <r2dbc-mysql.version>1.0.2</r2dbc-mysql.version>
         <spring-cloud.version>2022.0.3</spring-cloud.version>
     </properties>
 
@@ -45,7 +45,7 @@
         </dependency>
 
         <dependency>
-            <groupId>dev.miku</groupId>
+            <groupId>io.asyncer</groupId>
             <artifactId>r2dbc-mysql</artifactId>
             <version>${r2dbc-mysql.version}</version>
             <scope>runtime</scope>
