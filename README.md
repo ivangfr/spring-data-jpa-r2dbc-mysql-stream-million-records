@@ -200,7 +200,7 @@ A simulation sample running the applications with Maven and using `JConsole` too
 
 - **Kafdrop**
 
-  `Kafdrop` can be accessed at http://localhost:9000
+  `Kafdrop` can be accessed at http://localhost:9001
 
 - **MySQL monitor**
 

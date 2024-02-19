@@ -14,8 +14,8 @@
     <description>Demo project for Spring Boot</description>
 
     <properties>
-        <r2dbc-mysql.version>1.0.2</r2dbc-mysql.version>
-        <spring-cloud.version>2022.0.3</spring-cloud.version>
+        <r2dbc-mysql.version>1.1.1</r2dbc-mysql.version>
+        <spring-cloud.version>2023.0.0</spring-cloud.version>
     </properties>
 
     <dependencies>
