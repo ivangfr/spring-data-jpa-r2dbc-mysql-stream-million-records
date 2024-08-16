@@ -31,29 +31,29 @@ On [ivangfr.github.io](https://ivangfr.github.io), I have compiled my Proof-of-C
 
 ## Prerequisites
 
-- [`Java 17+`](https://www.oracle.com/java/technologies/downloads/#java17)
+- [`Java 21+`](https://www.oracle.com/java/technologies/downloads/#java21)
 - [`Docker`](https://www.docker.com/)
 
 ## Start Environment
 
-- Open a terminal and inside `spring-data-jpa-r2dbc-mysql-stream-million-records` root folder run
+- Open a terminal and inside `spring-data-jpa-r2dbc-mysql-stream-million-records` root folder run:
   ```
   docker compose up -d
   ```
 
-- Wait for Docker containers to be up and running. To check it, run
+- Wait for Docker containers to be up and running. To check it, run:
   ```
   docker compose ps
   ```
 
-- Once `MySQL`, `Kafka` and `Zookeeper` are up and running, run the following scripts
+- Once `MySQL`, `Kafka` and `Zookeeper` are up and running, run the following scripts:
 
-  - To create two `Kafka` topics
+  - To create two `Kafka` topics:
     ```
     ./init-kafka-topics.sh
     ```
 
-  - To initialize `MySQL` database and to create two `Kafka` topics
+  - To initialize `MySQL` database and to create two `Kafka` topics:
     ```
     ./init-mysql-db.sh 1M
     ```
@@ -61,7 +61,7 @@ On [ivangfr.github.io](https://ivangfr.github.io), I have compiled my Proof-of-C
 
 ## Run applications with Maven
 
-Inside `spring-data-jpa-r2dbc-mysql-stream-million-records`, run the following Maven commands in different terminals
+Inside `spring-data-jpa-r2dbc-mysql-stream-million-records`, run the following Maven commands in different terminals:
 
 - **streamer-data-jpa**
   ```
@@ -77,8 +77,8 @@ Inside `spring-data-jpa-r2dbc-mysql-stream-million-records`, run the following M
 
 - ### Build Docker Images
 
-  - In a terminal, make sure you are in `spring-data-jpa-r2dbc-mysql-stream-million-records` root folder
-  - Run the following script to build the Docker images
+  - In a terminal, make sure you are in `spring-data-jpa-r2dbc-mysql-stream-million-records` root folder;
+  - Run the following script to build the Docker images:
     - JVM
       ```
       ./docker-build.sh
@@ -110,7 +110,7 @@ Inside `spring-data-jpa-r2dbc-mysql-stream-million-records`, run the following M
 
 - ### Start Docker Containers
 
-  Run the following `docker run` commands in different terminals
+  Run the following `docker run` commands in different terminals:
 
   - **streamer-data-jpa**
     ```
@@ -136,14 +136,14 @@ Previously, during [Start Environment](#start-environment) step, we initialized 
 
 - **Running applications with Maven**
 
-  We will use [`JConsole`](https://openjdk.java.net/tools/svc/jconsole/) tool. In order to run it, open a new terminal and run
+  We will use [`JConsole`](https://openjdk.java.net/tools/svc/jconsole/) tool. In order to run it, open a new terminal and run:
   ```
   jconsole
   ```
 
 - **Running applications as Docker containers**
 
-  We will use [`cAdvisor`](https://github.com/google/cadvisor) tool. In a browser, access
+  We will use [`cAdvisor`](https://github.com/google/cadvisor) tool. In a browser, access:
   - to explore the running containers: http://localhost:8080/docker/
   - to go directly to a specific container:
     - **streamer-data-jpa**: http://localhost:8080/docker/streamer-data-jpa
@@ -174,7 +174,7 @@ We can monitor the amount of messages and the messages themselves been streamed 
 
 ### Sample 
 
-A simulation sample running the applications with Maven and using `JConsole` tool
+A simulation sample running the applications with Maven and using `JConsole` tool:
 
 - **streamer-data-jpa**
 
@@ -204,28 +204,28 @@ A simulation sample running the applications with Maven and using `JConsole` too
 
 - **MySQL monitor**
 
-  To check data in `customerdb` database
+  To check data in `customerdb` database:
   ```
   docker exec -it -e MYSQL_PWD=secret mysql mysql -uroot --database customerdb
   SELECT count(*) FROM customer;
   ```
 
-  To create a dump from `customer` table in `customerdb` database, make sure you are in `spring-data-jpa-r2dbc-mysql-stream-million-records` root folder and run
+  To create a dump from `customer` table in `customerdb` database, make sure you are in `spring-data-jpa-r2dbc-mysql-stream-million-records` root folder and run:
   ```
   ./dump-mysql-db.sh
   ```
 
 ## Shutdown
 
-- To stop `streamer-data-jpa` and `streamer-data-r2dbc`, go to the terminals were they are running and press `Ctrl+C`
-- To stop and remove docker compose containers, network and volumes, go to a terminal and, inside `spring-data-jpa-r2dbc-mysql-stream-million-records` root folder, run the command below
+- To stop `streamer-data-jpa` and `streamer-data-r2dbc`, go to the terminals were they are running and press `Ctrl+C`;
+- To stop and remove docker compose containers, network and volumes, go to a terminal and, inside `spring-data-jpa-r2dbc-mysql-stream-million-records` root folder, run the command below:
   ```
   docker compose down -v
   ```
 
 ## Cleanup
 
-To remove all Docker images created by this project, go to a terminal and, inside `spring-data-jpa-r2dbc-mysql-stream-million-records` root folder, run the following script
+To remove all Docker images created by this project, go to a terminal and, inside `spring-data-jpa-r2dbc-mysql-stream-million-records` root folder, run the following script:
 ```
 ./remove-docker-images.sh
 ```
