@@ -1,6 +1,6 @@
 # spring-data-jpa-r2dbc-mysql-stream-million-records
 
-In this project, we will implement two [`Spring Boot`](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/) Java Web application called, `streamer-data-jpa` and `streamer-data-r2dbc`. They both will fetch 1 million of customer's data from [`MySQL`](https://www.mysql.com/) and stream them to [`Kafka`](https://kafka.apache.org/). The main goal is to compare the application's performance and resource utilization. 
+In this project, we will implement two [`Spring Boot`](https://docs.spring.io/spring-boot/index.html) Java Web application called, `streamer-data-jpa` and `streamer-data-r2dbc`. They both will fetch 1 million of customer's data from [`MySQL`](https://www.mysql.com/) and stream them to [`Kafka`](https://kafka.apache.org/). The main goal is to compare the application's performance and resource utilization. 
 
 ## Proof-of-Concepts & Articles
 
@@ -14,7 +14,7 @@ On [ivangfr.github.io](https://ivangfr.github.io), I have compiled my Proof-of-C
 
 - ### streamer-data-jpa
 
-  `Spring Boot` Web Java application that connects to `MySQL` using [`Spring Data JPA`](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/) and to `Kafka`.
+  `Spring Boot` Web Java application that connects to `MySQL` using [`Spring Data JPA`](https://docs.spring.io/spring-data/jpa/reference/) and to `Kafka`.
 
   It provides some endpoints such as:
   - `PATCH api/customers/stream-naive[?limit=x]`: to stream customer records using a naive implementation with `Spring Data JPA`;
@@ -23,7 +23,7 @@ On [ivangfr.github.io](https://ivangfr.github.io), I have compiled my Proof-of-C
 
 - ### streamer-data-r2dbc
 
-  `Spring Boot` Web Java application that connects to `MySQL` using [`Spring Data R2DBC`](https://docs.spring.io/spring-data/r2dbc/docs/current/reference/html/) and to `Kafka`.
+  `Spring Boot` Web Java application that connects to `MySQL` using [`Spring Data R2DBC`](https://docs.spring.io/spring-data/relational/reference/) and to `Kafka`.
 
   It provides some endpoints such as:
   - `PATCH api/customers/stream[?limit=x]`: to stream customer records;
@@ -136,7 +136,7 @@ Previously, during [Start Environment](#start-environment) step, we initialized 
 
 - **Running applications with Maven**
 
-  We will use [`JConsole`](https://openjdk.java.net/tools/svc/jconsole/) tool. In order to run it, open a new terminal and run:
+  We will use [`JConsole`](https://openjdk.org/tools/svc/jconsole/) tool. In order to run it, open a new terminal and run:
   ```
   jconsole
   ```
