@@ -49,14 +49,14 @@ services:
     healthcheck:
       test: 'curl -f http://localhost:9000 || exit 1'
 
-#  cadvisor:
-#    image: 'gcr.io/cadvisor/cadvisor:v0.49.2'
-#    container_name: 'cadvisor'
-#    ports:
-#      - '8080:8080'
-#    volumes:
-#      - '/:/rootfs:ro'
-#      - '/var/run:/var/run:rw'
-#      - '/sys:/sys:ro'
-#      - '/var/lib/docker/:/var/lib/docker:ro'
-#      - '/var/run/docker.sock:/var/run/docker.sock'
+  cadvisor:
+    image: 'gcr.io/cadvisor/cadvisor:v0.49.2'
+    container_name: 'cadvisor'
+    ports:
+      - '8080:8080'
+    volumes:
+      - '/:/rootfs:ro'
+      - '/var/run:/var/run:rw'
+      - '/sys:/sys:ro'
+      - '/var/lib/docker/:/var/lib/docker:ro'
+      - '/var/run/docker.sock:/var/run/docker.sock'
