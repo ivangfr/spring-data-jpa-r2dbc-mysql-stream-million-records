@@ -1,4 +1,4 @@
-package com.ivanfranchin.streamerdatajpa.model;
+package com.ivanfranchin.streamerdatajpa.customer;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

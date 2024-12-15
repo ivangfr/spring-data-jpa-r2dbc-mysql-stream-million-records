@@ -1,6 +1,5 @@
-package com.ivanfranchin.streamerdatajpa.repository;
+package com.ivanfranchin.streamerdatajpa.customer;
 
-import com.ivanfranchin.streamerdatajpa.model.Customer;
 import jakarta.persistence.QueryHint;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

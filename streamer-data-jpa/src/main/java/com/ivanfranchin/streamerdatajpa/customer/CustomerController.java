@@ -1,9 +1,5 @@
-package com.ivanfranchin.streamerdatajpa.rest;
+package com.ivanfranchin.streamerdatajpa.customer;
 
-import com.ivanfranchin.streamerdatajpa.bus.CustomerStream;
-import com.ivanfranchin.streamerdatajpa.model.Customer;
-import com.ivanfranchin.streamerdatajpa.service.CustomerService;
-import com.ivanfranchin.streamerdatajpa.service.RandomCustomerGenerator;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,25 +15,25 @@ import java.util.stream.Stream;
 @RequestMapping("/api/customers")
 public class CustomerController {
 
-    private final CustomerService customerService;
-    private final CustomerStream customerStream;
+    private final CustomerRepository customerRepository;
+    private final CustomerEmitter customerStream;
     private final RandomCustomerGenerator randomCustomerGenerator;
     private final EntityManager entityManager;
 
     @PatchMapping("/load")
     public void loadCustomers(@RequestParam Integer amount) {
-        customerService.saveCustomers(randomCustomerGenerator.generate(amount));
+        customerRepository.saveAll(randomCustomerGenerator.generate(amount));
     }
 
     @PatchMapping("/stream-naive")
     public void streamNaiveCustomers() {
-        customerService.getCustomerList().forEach(customerStream::send);
+        customerRepository.findAll().forEach(customerStream::send);
     }
 
     @Transactional(readOnly = true)
     @PatchMapping("/stream")
     public void streamCustomers() {
-        try (Stream<Customer> customers = customerService.getCustomerStream()) {
+        try (Stream<Customer> customers = customerRepository.streamAll()) {
             customers.forEach(customer -> {
                 customerStream.send(customer);
                 entityManager.detach(customer);

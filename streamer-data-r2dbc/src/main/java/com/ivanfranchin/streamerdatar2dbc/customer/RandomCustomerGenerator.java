@@ -1,12 +1,11 @@
-package com.ivanfranchin.streamerdatajpa.service;
+package com.ivanfranchin.streamerdatar2dbc.customer;
 
-import com.ivanfranchin.streamerdatajpa.model.Customer;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Flux;
 
 import java.security.SecureRandom;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Component
@@ -29,13 +28,13 @@ public class RandomCustomerGenerator {
             "Adams", "Nelson", "Baker", "Hall", "Rivera", "Campbell", "Mitchell", "Carter", "Roberts"
     );
 
-    public List<Customer> generate(Integer amount) {
-        return IntStream.rangeClosed(1, amount)
+    public Flux<Customer> generate(Integer amount) {
+        return Flux.fromStream(IntStream.rangeClosed(1, amount)
                 .mapToObj(i -> {
                     Customer customer = new Customer();
                     customer.setFirstName(FIRST_NAMES.get(random.nextInt(FIRST_NAMES.size())));
                     customer.setLastName(LAST_NAMES.get(random.nextInt(LAST_NAMES.size())));
                     return customer;
-                }).collect(Collectors.toList());
+                }));
     }
 }

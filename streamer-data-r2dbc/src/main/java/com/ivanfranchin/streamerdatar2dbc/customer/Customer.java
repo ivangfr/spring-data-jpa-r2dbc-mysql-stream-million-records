@@ -1,4 +1,4 @@
-package com.ivanfranchin.streamerdatar2dbc.model;
+package com.ivanfranchin.streamerdatar2dbc.customer;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;

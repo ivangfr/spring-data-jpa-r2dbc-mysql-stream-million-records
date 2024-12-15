@@ -1,6 +1,5 @@
-package com.ivanfranchin.streamerdatar2dbc.bus;
+package com.ivanfranchin.streamerdatajpa.customer;
 
-import com.ivanfranchin.streamerdatar2dbc.model.Customer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.function.StreamBridge;
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class CustomerStream {
+public class CustomerEmitter {
 
     private final StreamBridge streamBridge;
 
