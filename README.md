@@ -80,7 +80,7 @@ Inside the `spring-data-jpa-r2dbc-mysql-stream-million-records`, run the followi
   - In a terminal, make sure you are in the `spring-data-jpa-r2dbc-mysql-stream-million-records` root folder;
   - Run the following script to build the Docker images:
     ```
-    ./docker-build.sh
+    ./build-docker-images.sh
     ```
 
 - ### Environment Variables
