@@ -5,27 +5,33 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.2</version>
+        <version>3.4.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-
     <groupId>com.ivanfranchin</groupId>
     <artifactId>spring-data-jpa-r2dbc-mysql-stream-million-records</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
     <name>spring-data-jpa-r2dbc-mysql-stream-million-records</name>
     <description>Demo project for Spring Boot</description>
-
+    <url/>
+    <licenses>
+        <license/>
+    </licenses>
+    <developers>
+        <developer/>
+    </developers>
+    <scm>
+        <connection/>
+        <developerConnection/>
+        <tag/>
+        <url/>
+    </scm>
     <properties>
         <java.version>21</java.version>
-        <jib-maven-plugin.version>3.4.3</jib-maven-plugin.version>
+        <jib-maven-plugin.version>3.4.4</jib-maven-plugin.version>
         <docker-image.prefix>ivanfranchin</docker-image.prefix>
     </properties>
-
-	<modules>
-		<module>streamer-data-jpa</module>
-		<module>streamer-data-r2dbc</module>
-	</modules>
 
     <build>
         <plugins>
@@ -50,5 +56,10 @@
             </plugin>
         </plugins>
     </build>
+
+    <modules>
+        <module>streamer-data-jpa</module>
+        <module>streamer-data-r2dbc</module>
+    </modules>
 
 </project>
