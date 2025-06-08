@@ -1,7 +1,7 @@
 services:
 
   mysql:
-    image: 'mysql:9.1.0'
+    image: 'mysql:9.2.0'
     container_name: 'mysql'
     ports:
       - '3306:3306'
@@ -38,7 +38,7 @@ services:
       test: [ "CMD", "nc", "-z", "localhost", "9092" ]
 
   kafdrop:
-    image: 'obsidiandynamics/kafdrop:4.0.2'
+    image: 'obsidiandynamics/kafdrop:4.1.0'
     container_name: 'kafdrop'
     depends_on:
       - 'kafka'
