@@ -29,22 +29,9 @@
     </scm>
     <properties>
         <java.version>21</java.version>
-        <jib-maven-plugin.version>3.4.4</jib-maven-plugin.version>
     </properties>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>com.google.cloud.tools</groupId>
-                <artifactId>jib-maven-plugin</artifactId>
-                <version>${jib-maven-plugin.version}</version>
-            </plugin>
-        </plugins>
-    </build>
-
     <modules>
         <module>streamer-data-jpa</module>
         <module>streamer-data-r2dbc</module>
     </modules>
-
 </project>
