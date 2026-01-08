@@ -50,7 +50,7 @@ On [ivangfr.github.io](https://ivangfr.github.io), I have compiled my Proof-of-C
 
   - To create two `Kafka` topics:
     ```bash
-    ./init-kafka-topics.sh
+    ./create-kafka-topics.sh
     ```
 
   - To initialize the `MySQL` database and to create two `Kafka` topics:
