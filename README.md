@@ -148,7 +148,7 @@ Previously, during [Start Environment](#start-environment) step, we initialized 
 
 In another terminal, call the following `curl` commands to trigger the streaming of customer records from `MySQL` to `Kafka`. At the end of the `curl` command, the total time it took (in seconds) to process will be displayed.
 
-We can monitor the amount of messages and the messages themselves being streamed using [Kafdrop – Kafka Web UI](https://github.com/obsidiandynamics/kafdrop) at http://localhost:9000
+We can monitor the amount of messages and the messages themselves being streamed using [Kafdrop – Kafka Web UI](https://github.com/obsidiandynamics/kafdrop) at http://localhost:9001
 
 - **streamer-data-jpa**
 
@@ -175,21 +175,21 @@ A simulation sample running the applications with Maven and using the `JConsole`
 
   _Naive implementation_
   ```text
-  Response Time: 414.486126s
+  Response Time: 44.655927s
   ```
-  ![jconsole-jpa-stream-naive](documentation/jconsole-jpa-stream-naive.jpeg)
+  ![jconsole-jpa-stream-naive](documentation/jconsole-jpa-stream-naive.jpg)
 
   _Better implementation_
   ```text
-  Response Time: 453.692525s
+  Response Time: 46.709996s
   ```
-  ![jconsole-jpa-stream](documentation/jconsole-jpa-stream.jpeg)
+  ![jconsole-jpa-stream](documentation/jconsole-jpa-stream.jpg)
 
 - **streamer-data-r2dbc**
   ```text
-  Response Time: 476.951654s
+  Response Time: 52.828097s
   ```
-  ![jconsole-r2dbc-stream](documentation/jconsole-r2dbc-stream.jpeg)
+  ![jconsole-r2dbc-stream](documentation/jconsole-r2dbc-stream.jpg)
 
 ## Useful commands & links
 
@@ -205,7 +205,7 @@ A simulation sample running the applications with Maven and using the `JConsole`
   SELECT count(*) FROM customer;
   ```
 
-  To create a dump from the `customer` table in the `customerdb` database, make sure you are in the `spring-data-jpa-r2dbc-mysql-stream-million-records` root folder and run
+  To create a dump from the `customer` table in the `customerdb` database, make sure you are in the `spring-data-jpa-r2dbc-mysql-stream-million-records` root folder and run:
   ```bash
   ./dump-mysql-db.sh
   ```
